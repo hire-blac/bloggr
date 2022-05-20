@@ -86,8 +86,8 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
+        <main class="mx-4 py-4">
+          @include('message')
             @yield('content')
         </main>
     </div>

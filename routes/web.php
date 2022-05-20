@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\UserAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,3 +35,8 @@ Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.hom
 // Route::get('/blogs/blog', [BlogsController::class, 'blog'])->name('blog');
 
 Route::resource('blogs', BlogController::class);
+
+// Route::get('/users/all', [UserAdminController::class, 'index'])->middleware('is_admin');
+// Route::get('/users/destroy', [UserAdminController::class, 'destroy'])->middleware('is_admin');
+
+// Route::resource('/users/destroy', [UserAdminController::class, 'destroy'])->middleware('is_admin');

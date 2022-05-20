@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Blog;
+use App\Models\User;
 
-class BlogController extends Controller
+class UserAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs =  Blog::orderBy('updated_at', 'desc')->paginate(10);
-        return view('blog.allBlogs')->with('blogs', $blogs);
+        $users = User::all();
+        return $users;
     }
 
     /**
@@ -25,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-      return view('blog.newBlog');
+        //
     }
 
     /**
@@ -36,18 +36,7 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-          'title' => 'required',
-          'body' => 'required',
-        ]);
-
-        // create new blog
-        $blog = new Blog;
-        $blog->title = $request->input('title');
-        $blog->body = $request->input('body');
-        $blog->save();
-
-        return redirect('/blogs')->with('success', 'Blog created!!');
+        //
     }
 
     /**
@@ -58,8 +47,7 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-      $blog = Blog::find($id);
-      return view('blog.blog')->with('blog', $blog);
+        //
     }
 
     /**
@@ -70,8 +58,7 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-      $blog = Blog::find($id);
-      return view('blog.edit')->with('blog', $blog);
+        //
     }
 
     /**
@@ -83,18 +70,7 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $this->validate($request, [
-        'title' => 'required',
-        'body' => 'required',
-      ]);
-
-      // create new blog
-      $blog = Blog::find($id);
-      $blog->title = $request->input('title');
-      $blog->body = $request->input('body');
-      $blog->save();
-
-      return redirect('/blogs')->with('success', 'Blog Updated!!');
+        //
     }
 
     /**
@@ -105,6 +81,6 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return 'Destyoyed';
     }
 }
