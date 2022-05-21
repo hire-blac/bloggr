@@ -12,13 +12,11 @@
               {{$blog->body}}
             </p>
         </div>
+        {!!Form::open(['action' => ['App\Http\Controllers\BlogController@destroy', $blog->id], 'method'=> "POST", 'class'=>'pull-right'])!!}
+          {{Form::hidden('_method', 'DELETE')}}
+          {{Form::submit('Delete', ['class'=>'btn btn-danger'])}}
+        {!!Form::close()!!}
     </div>
-    <a class="btn" href="/blogs/{{$blog->id}}/edit">Edit blog</a>
-
-    {!!Form::open(['action' => ['App\Http\Controllers\BlogController@destroy', $blog->id], 'method'=> "POST", 'class'=>'pull-right'])}
-      {{Form::hidden('_method', 'DELETE')}}
-      {{Form::submit('Delete', ['class'=>'btn btn-danger'])}}
-    {!!Form::close()!!}
   </div>
 
 </div>

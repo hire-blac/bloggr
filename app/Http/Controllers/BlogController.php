@@ -15,7 +15,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs =  Blog::orderBy('updated_at', 'desc')->paginate(10);
-        return view('blog.allBlogs')->with('blogs', $blogs);
+        return view('welcome')->with('blogs', $blogs);
     }
 
     /**
@@ -45,6 +45,7 @@ class BlogController extends Controller
         $blog = new Blog;
         $blog->title = $request->input('title');
         $blog->body = $request->input('body');
+        $blog->user_id = auth()->user()->id;
         $blog->save();
 
         return redirect('/blogs')->with('success', 'Blog created!!');
@@ -105,6 +106,14 @@ class BlogController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $blog = Blog::find($id);
+      $user = auth()->user();
+
+      if ($user->is_admin || $blog->user_id == $user->id) {
+        $blog->delete();
+        return redirect('/profile')->with('success', 'Blog Deleted!!');
+      } else {
+        return view('blog.blog')->with('blog', $blog);
+      }
     }
 }

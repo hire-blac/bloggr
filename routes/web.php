@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserAdminController;
+use App\Models\Blog;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,8 @@ use App\Http\Controllers\UserAdminController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $blogs =  Blog::orderBy('updated_at', 'desc')->paginate(10);
+    return view('welcome')->with('blogs', $blogs);
 });
 
 // Route::get('/blogs', function () {
@@ -27,7 +29,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/profile', [HomeController::class, 'index'])->name('profile');
 Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 // Route::get('/blogs', [BlogsController::class, 'blogs'])->name('all.blogs');
